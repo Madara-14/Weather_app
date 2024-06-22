@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Weather</title>
+    <link rel="stylesheet" href="/style/main.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Current Weather</h1>
+
+        <!-- Form to input city and country -->
+        <form action="/weather" method="POST" class="weather-form">
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required>
+
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country" required>
+
+            <button type="submit">Get Weather</button>
+        </form>
+
+        <!-- Weather information section -->
+        <div class="weather-info">
+            <% if (weather!='') { %>
+                <div class="location">
+                    <h2><%= weather.city_name %>, <%= weather.country_code %></h2>
+                    <p>Latitude: <%= weather.lat %></p>
+                    <p>Longitude: <%= weather.lon %></p>
+                    <p>Timezone: <%= weather.timezone %></p>
+                </div>
+
+                <div class="temperature">
+                    <h2>Temperature</h2>
+                    <p><%= weather.temp %>°C</p>
+                    <p>Feels like: <%= weather.app_temp %>°C</p>
+                </div>
+
+                <% if (weather.weather) { %>
+                    <div class="weather-description">
+                        <h2>Weather Description</h2>
+                        <p><%= weather.weather.description %></p>
+                        <img src="https://www.weatherbit.io/static/img/icons/<%= weather.weather.icon %>.png" alt="Weather Icon">
+    <p>Wind speed: <% let num = weather.wind_spd;
+                   let roundedNum = Math.round(num * 100) / 100; %>
+                   <%= roundedNum %> m/s 
+                          towards  <%= weather.wind_cdir_full %> </p>
+                    </div>
+                <% } %>
+
+                <div class="additional-info">g
+                    <h2>Additional Information</h2>
+                    <p>Humidity: <%= weather.rh %>%</p>
+                    <p>Pressure: <%= weather.pres %> mbar</p>
+                    <p>Visibility: <%= weather.vis %> km</p>
+                    <p>Wind: <%= weather.wind_spd %> m/s <%= weather.wind_cdir_full %></p>
+                </div>
+            <% } %>
+        </div> <!-- /.weather-info -->
+
+    </div> <!-- /.container -->
+</body>
+</html>
