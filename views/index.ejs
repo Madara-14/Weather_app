@@ -22,8 +22,11 @@
         </form>
 
         <!-- Weather information section -->
+         <% if (city_exist===0){ %>
+                     <h1>city not exist</h1>
+         <%}%>
         <div class="weather-info">
-            <% if (weather!='') { %>
+            <% if (weather!='' && city_exist) { %>
                 <div class="location">
                     <h2><%= weather.city_name %>, <%= weather.country_code %></h2>
                     <p>Latitude: <%= weather.lat %></p>
